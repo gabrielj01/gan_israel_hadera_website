@@ -52,7 +52,7 @@ export default function Hero() {
         {/* Liens réseaux sociaux */}
         <div className="hero-social" aria-label="Suivez-nous sur les réseaux sociaux">
           <a
-            href="LIEN_FACEBOOK_ICI"
+            href="https://www.facebook.com/menouha.amram/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Notre page Facebook"
@@ -60,7 +60,7 @@ export default function Hero() {
             <IconFacebook />
           </a>
           <a
-            href="https://wa.me/972534716978?text=Bonjour%2C%20je%20souhaite%20recevoir%20des%20informations%20concernant%20le%20Gan%20Isra%C3%ABl%20Hadera."
+            href="https://wa.me/972534716978?text=Bonjour%2C%20je%20souhaite%20recevoir%20des%20informations%20concernant%20le%20Gan%20Isra%C3%ABl%20de%20Hadera."
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Nous contacter sur WhatsApp"
@@ -68,7 +68,7 @@ export default function Hero() {
             <IconWhatsApp />
           </a>
           <a
-            href="LIEN_INSTAGRAM_ICI"
+            href="https://www.instagram.com/jeunesse.hadera/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Notre profil Instagram"

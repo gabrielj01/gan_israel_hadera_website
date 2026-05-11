@@ -82,7 +82,7 @@ export default function Navbar() {
               <a
                 href="#inscription"
                 className="navbar-cta"
-                onClick={(e) => handleNavClick(e, '#sponsor')}
+                onClick={(e) => handleNavClick(e, '#pricing')}
               >
                 Inscription
               </a>

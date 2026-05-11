@@ -307,7 +307,7 @@ export default function Pricing() {
 
         <div className="pricing-links fade-in fade-in-delay-3">
           <a
-            href="LIEN_REGLEMENT_INTERIEUR_ICI"
+            href="https://b5bdff14-f890-41f8-a9ba-fb6dd6794f71.filesusr.com/ugd/fd75f0_20b46079d85b4f8388d86e0b34ca0d4e.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="pricing-link"
@@ -316,7 +316,7 @@ export default function Pricing() {
           </a>
 
           <a
-            href="LIEN_PAIEMENT_ICI"
+            href="https://secure.cardcom.solutions/EA/EA5/ROfIyK9ZEariSyVato2g/Order"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"

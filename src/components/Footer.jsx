@@ -73,7 +73,7 @@ export default function Footer() {
         {/* Réseaux sociaux */}
         <div className="footer-social" aria-label="Suivez la communauté sur les réseaux sociaux">
           <a
-            href="LIEN_FACEBOOK_COMMUNAUTE_ICI"
+            href="https://www.facebook.com/menouha.amram/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Page Facebook de la communauté Habad Hadera"
@@ -81,7 +81,7 @@ export default function Footer() {
             <IconFacebook />
           </a>
           <a
-            href="LIEN_INSTAGRAM_COMMUNAUTE_ICI"
+            href="https://www.instagram.com/habad_hadera/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Profil Instagram de la communauté Habad Hadera"
@@ -93,7 +93,7 @@ export default function Footer() {
         <div className="footer-divider" />
 
         <p className="footer-bottom">
-          © {new Date().getFullYear()} Gan Israel Hadera – Beth Habad Jeunesse Hadera
+          © {new Date().getFullYear()} – Beth Habad Jeunesse Hadera
         </p>
       </div>
     </footer>
