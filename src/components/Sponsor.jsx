@@ -25,7 +25,7 @@ export default function Sponsor() {
 
         <div className="fade-in fade-in-delay-2">
           <a
-            href="https://secure.cardcom.solutions/e/PTVW5yK5906K4VFPUNnP4w"
+            href="https://secure.cardcom.solutions/EA/EA5/mGHKD2QpEy23zxIgfD2ng/PaymentSP"
             target="_blank"
             rel="noopener noreferrer"
             className="sponsor-btn"

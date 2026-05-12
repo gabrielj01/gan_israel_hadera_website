@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
 import img1 from '../assets/images/img1.jpg'
-import img2 from '../assets/images/img2.jpg'
 import img3 from '../assets/images/img3.jpg'
 import img4 from '../assets/images/img4.jpg'
 import img5 from '../assets/images/img5.jpg'
@@ -18,12 +17,10 @@ import img16 from '../assets/images/img16.jpg'
 import img17 from '../assets/images/img17.jpg'
 import img18 from '../assets/images/img18.jpg'
 import img19 from '../assets/images/img19.jpg'
-import img20 from '../assets/images/img20.jpg'
 import img21 from '../assets/images/img21.jpg'
 
 const SLIDES = [
   { src: img1, alt: 'Activités au Gan Israel Hadera' },
-  { src: img2, alt: 'Sorties du Gan Israel Hadera' },
   { src: img3, alt: 'Ambiance au Gan Israel Hadera' },
   { src: img4, alt: 'Jeux au Gan Israel Hadera' },
   { src: img5, alt: 'Activités au Gan Israel Hadera' },
@@ -41,34 +38,8 @@ const SLIDES = [
   { src: img17, alt: 'Activités au Gan Israel Hadera' },
   { src: img18, alt: 'Activités au Gan Israel Hadera' },
   { src: img19, alt: 'Activités au Gan Israel Hadera' },
-  { src: img20, alt: 'Activités au Gan Israel Hadera' },
   { src: img21, alt: 'Activités au Gan Israel Hadera' },
 ]
-/*
-  INSTRUCTIONS IMAGES :
-  Placez vos photos dans : src/assets/images/
-  Nommez-les : gallery-1.jpg, gallery-2.jpg, gallery-3.jpg … etc.
-  Puis ajoutez les imports correspondants ci-dessous.
-
-  Exemple :
-    import img1 from '../assets/images/gallery-1.jpg'
-    import img2 from '../assets/images/gallery-2.jpg'
-    ...
-    const SLIDES = [
-      { src: img1, alt: 'Activité au Gan Israel Hadera' },
-      { src: img2, alt: 'Sortie du Gan Israel Hadera' },
-      ...
-    ]
-*/
-
-// ── SLIDES – Remplacez les objets ci-dessous par vos vraies images ──────────
-// Exemple avec imports réels (décommenter + adapter) :
-// import img1 from '../assets/images/gallery-1.jpg'
-// import img2 from '../assets/images/gallery-2.jpg'
-// import img3 from '../assets/images/gallery-3.jpg'
-// import img4 from '../assets/images/gallery-4.jpg'
-// import img5 from '../assets/images/gallery-5.jpg'
-// import img6 from '../assets/images/gallery-6.jpg'
 
 export default function Gallery() {
   const [current, setCurrent] = useState(0)

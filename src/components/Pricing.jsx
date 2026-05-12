@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
+import rulesPdfUrl from '../assets/docs/reglement_interieur.pdf'
 
+const RULES_PDF_URL = rulesPdfUrl
 const WEEKS = [
   {
     id: 'week1',
@@ -279,7 +281,8 @@ function PricingCalculator({ plan }) {
 
           {selectedWeeks.length === 3 && (
             <p className="pricing-discount">
-              Réduction incluse : {formatPrice(plan.rates[childrenCount].discount)}
+              Réduction incluse :{' '}
+              {formatPrice(plan.rates[childrenCount].discount)}
             </p>
           )}
         </div>
@@ -289,6 +292,12 @@ function PricingCalculator({ plan }) {
 }
 
 export default function Pricing() {
+  const [showRulesPdf, setShowRulesPdf] = useState(false)
+
+  function closeRulesPdf() {
+    setShowRulesPdf(false)
+  }
+
   return (
     <section id="pricing" className="pricing">
       <div className="container">
@@ -306,25 +315,64 @@ export default function Pricing() {
         </div>
 
         <div className="pricing-links fade-in fade-in-delay-3">
-          <a
-            href="https://b5bdff14-f890-41f8-a9ba-fb6dd6794f71.filesusr.com/ugd/fd75f0_20b46079d85b4f8388d86e0b34ca0d4e.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
+          <button
+            type="button"
             className="pricing-link"
+            onClick={() => setShowRulesPdf(true)}
           >
             📄 Règlement intérieur
-          </a>
+          </button>
 
           <a
-            href="https://secure.cardcom.solutions/EA/EA5/ROfIyK9ZEariSyVato2g/Order"
+            href="https://secure.cardcom.solutions/EA/EA5/eqhjemHj0GdQ7o02jMNQ/PaymentSP"
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary"
           >
             💳 Procéder au paiement
           </a>
+
+          <a
+            href="https://forms.gle/hCwCh719686RVyj89"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pricing-link"
+          >
+            📄 Formulaire d'Inscription
+          </a>
         </div>
       </div>
+
+      {showRulesPdf && (
+        <div
+          className="pdf-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Règlement intérieur"
+          onClick={(event) => {
+            if (event.target === event.currentTarget) {
+              closeRulesPdf()
+            }
+          }}
+        >
+          <div className="pdf-modal-content">
+            <button
+              type="button"
+              className="pdf-modal-close"
+              onClick={closeRulesPdf}
+              aria-label="Fermer le PDF"
+            >
+              ×
+            </button>
+
+            <iframe
+              src={RULES_PDF_URL}
+              title="Règlement intérieur"
+              className="pdf-frame"
+            />
+          </div>
+        </div>
+      )}
     </section>
   )
 }

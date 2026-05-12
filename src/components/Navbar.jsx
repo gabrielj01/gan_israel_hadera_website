@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-//import logo from '../assets/logos/logo.png'
+import logo from '../assets/logos/logo.png'
 
 const navLinks = [
   { label: 'Qui sommes-nous ?', href: '#about' },
@@ -7,6 +7,7 @@ const navLinks = [
   { label: 'Programme',         href: '#program' },
   { label: 'Tarifs',            href: '#pricing' },
   { label: 'Localisation',      href: '#location' },
+  { label: 'Parrainer un enfant ',href: '#sponsor' },
 ]
 
 export default function Navbar() {
@@ -54,15 +55,16 @@ export default function Navbar() {
       >
         <div className="navbar-inner">
           {/* Logo */}
+          <span className="bh-mark">ב"ה</span>
           <a
             href="#hero"
             className="navbar-logo"
             onClick={(e) => handleNavClick(e, '#hero')}
             aria-label="Gan Israel Hadera – accueil"
           >
-            {/* <img src={logo} alt="Logo Gan Israel Hadera" /> */}
+            { <img src={logo} alt="Logo Gan Israel Hadera" /> }
             <span className="navbar-logo-text">
-              Gan Israel<br />Hadera
+              Gan Israel Hadera <br /> by Jeunesse Hadera
             </span>
           </a>
 
