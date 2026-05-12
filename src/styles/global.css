@@ -1,6 +1,6 @@
 /* =============================================
-   GLOBAL.CSS – Gan Israel Hadera
-   Design : coloré, enfantin, joyeux, chaleureux
+   GLOBAL.CSS â€“ Gan Israel Hadera
+   Design : colorÃ©, enfantin, joyeux, chaleureux
    ============================================= */
 
 /* --- Variables -------------------------------- */
@@ -435,7 +435,7 @@ section {
   overflow: hidden;
 }
 
-/* Formes décoratives */
+/* Formes dÃ©coratives */
 .hero::before {
   content: '';
   position: absolute;
@@ -876,11 +876,64 @@ section {
   padding: 5rem 1.5rem;
 }
 
-.pricing-grid {
+.pricing-countdown {
+  max-width: 760px;
+  margin: 0 auto 2rem;
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  background: var(--white);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  border: 2px solid rgba(255, 214, 0, 0.8);
+}
+
+.pricing-countdown-ended {
+  border-color: var(--blue-main);
+}
+
+.pricing-countdown-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+  color: var(--blue-main);
+  margin-bottom: 1rem;
+}
+
+.pricing-countdown-ended strong {
+  display: block;
+  font-family: var(--font-display);
+  color: var(--text-dark);
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+}
+
+.countdown-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.8rem;
+}
+
+.countdown-item {
+  background: linear-gradient(135deg, var(--blue-bg), var(--yellow-light));
+  border-radius: var(--radius-md);
+  padding: 1rem 0.6rem;
+  border: 1px solid rgba(21, 101, 192, 0.12);
+}
+
+.countdown-item strong {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.2rem);
+  color: var(--blue-main);
+  line-height: 1;
+}
+
+.countdown-item span {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-weight: 700;
 }
 
 .pricing-card {
@@ -901,11 +954,11 @@ section {
   color: var(--white);
 }
 
-.pricing-card:nth-child(1) .pricing-card-header {
+.pricing-calculator-card.early .pricing-card-header {
   background: linear-gradient(135deg, var(--green), #66BB6A);
 }
 
-.pricing-card:nth-child(2) .pricing-card-header {
+.pricing-calculator-card.standard .pricing-card-header {
   background: linear-gradient(135deg, var(--blue-main), var(--blue-mid));
 }
 
@@ -933,91 +986,16 @@ section {
   margin-top: 0.4rem;
 }
 
-.pricing-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.pricing-table th,
-.pricing-table td {
-  padding: 0.8rem 1.2rem;
-  text-align: left;
-  font-size: 0.92rem;
-  border-bottom: 1px solid var(--blue-pale);
-}
-
-.pricing-table th {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--text-dark);
-  background: var(--blue-bg);
-  font-size: 0.85rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.pricing-table td {
-  color: var(--text-body);
-}
-
-.pricing-table tr:last-child td {
-  border-bottom: none;
-}
-
-.pricing-table .price {
-  font-family: var(--font-display);
-  font-weight: 700;
-  color: var(--blue-main);
-  font-size: 1rem;
-}
-
-.pricing-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  justify-content: center;
-  margin-top: 0.5rem;
-}
-
-.pricing-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--white);
-  color: var(--blue-main);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 0.95rem;
-  padding: 0.7rem 1.6rem;
-  border-radius: var(--radius-full);
-  box-shadow: var(--shadow-sm);
-  border: 2px solid var(--blue-main);
-  transition: all var(--transition);
-}
-
-.pricing-link:hover {
-  background: var(--blue-main);
-  color: var(--white);
-  transform: translateY(-2px);
-}
-
 .pricing-calculators {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 1.5rem;
-  margin-bottom: 2.5rem;
+  max-width: 760px;
+  margin: 0 auto 2.5rem;
 }
 
 .pricing-calculator-card {
   overflow: hidden;
-}
-
-.pricing-calculator-card.early .pricing-card-header {
-  background: linear-gradient(135deg, var(--green), #66BB6A);
-}
-
-.pricing-calculator-card.standard .pricing-card-header {
-  background: linear-gradient(135deg, var(--blue-main), var(--blue-mid));
 }
 
 .pricing-form {
@@ -1105,6 +1083,13 @@ section {
   font-size: 1.05rem;
 }
 
+.week-choice-price {
+  display: block;
+  font-weight: 800;
+  color: var(--green);
+  margin-top: 0.2rem;
+}
+
 .week-choice-date {
   display: block;
   color: var(--text-muted);
@@ -1161,6 +1146,23 @@ section {
   line-height: 1.1;
 }
 
+.pricing-result-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.pricing-original-price {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 3vw, 1.55rem);
+  font-weight: 800;
+  color: var(--text-muted);
+  text-decoration: line-through;
+  text-decoration-thickness: 3px;
+}
+
 .pricing-result p {
   max-width: 100%;
   margin-top: 0.6rem;
@@ -1168,11 +1170,37 @@ section {
   font-size: 0.95rem;
 }
 
-@media (max-width: 768px) {
-  .pricing-calculators {
-    grid-template-columns: 1fr;
-  }
+.pricing-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
 
+.pricing-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--white);
+  color: var(--blue-main);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  padding: 0.7rem 1.6rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  border: 2px solid var(--blue-main);
+  transition: all var(--transition);
+}
+
+.pricing-link:hover {
+  background: var(--blue-main);
+  color: var(--white);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
   .pricing-form {
     padding: 1.2rem;
   }
@@ -1184,30 +1212,29 @@ section {
   .pricing-actions button {
     width: 100%;
   }
-  .navbar {
-    width: 100%;
-    padding: 1.7rem 1rem 0.8rem;
+
+  .countdown-grid {
+    gap: 0.55rem;
   }
 
-  .bh-mark {
-    top: 5px;
-    left: 10px;
-    font-size: 0.8rem;
+  .countdown-item {
+    padding: 0.8rem 0.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pricing-countdown {
+    padding: 1.2rem 0.9rem;
   }
 
-  .navbar-logo {
-    margin-top: 0.2rem;
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  .navbar-inner {
-    width: 100%;
-    max-width: none;
-  }
-
-  .hero {
-    width: 100%;
-    background-size: 100% auto;
-    background-position: center top;
+  .pricing-result-price-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
   }
 }
 
@@ -1248,7 +1275,7 @@ section {
 }
 
 .sponsor::before {
-  content: '💙';
+  content: 'ðŸ’™';
   position: absolute;
   font-size: 20rem;
   opacity: 0.04;
@@ -1540,6 +1567,27 @@ section {
     min-height: 100vh;
   }
 }
+
+.pricing-countdown-message {
+  max-width: 620px;
+  margin: 0 auto 1.4rem;
+  padding: 0.9rem 1.2rem;
+
+  background: linear-gradient(135deg, var(--yellow), var(--yellow-light));
+  color: var(--blue-dark);
+
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1rem, 2.4vw, 1.25rem);
+  line-height: 1.45;
+  text-align: center;
+
+  border-radius: var(--radius-full);
+  box-shadow: 0 8px 22px rgba(255, 214, 0, 0.35);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+}
+
+
 
 @media (max-width: 480px) {
   .hero-title { font-size: 2.2rem; }

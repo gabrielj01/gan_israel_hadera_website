@@ -7,7 +7,7 @@ const navLinks = [
   { label: 'Programme',         href: '#program' },
   { label: 'Tarifs',            href: '#pricing' },
   { label: 'Localisation',      href: '#location' },
-  { label: 'Parrainer un enfant ',href: '#sponsor' },
+  { label: 'Parrainez un enfant ',href: '#sponsor' },
 ]
 
 export default function Navbar() {

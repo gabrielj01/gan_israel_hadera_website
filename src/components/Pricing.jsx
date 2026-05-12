@@ -1,7 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import rulesPdfUrl from '../assets/docs/reglement_interieur.pdf'
 
 const RULES_PDF_URL = rulesPdfUrl
+const REGISTRATION_DEADLINE_MONTH_INDEX = 5
+const REGISTRATION_DEADLINE_DAY = 10
+
 const WEEKS = [
   {
     id: 'week1',
@@ -42,7 +45,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 1000,
         twoWeeksWithWeek3: 1100,
         threeWeeks: 1400,
-        discount: 102,
       },
       2: {
         oneWeekExceptWeek3: 1000,
@@ -50,7 +52,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 2000,
         twoWeeksWithWeek3: 2200,
         threeWeeks: 2800,
-        discount: 204,
       },
       3: {
         oneWeekExceptWeek3: 1500,
@@ -58,7 +59,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 3000,
         twoWeeksWithWeek3: 3300,
         threeWeeks: 4050,
-        discount: 450,
       },
       4: {
         oneWeekExceptWeek3: 2000,
@@ -66,7 +66,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 4000,
         twoWeeksWithWeek3: 4400,
         threeWeeks: 5400,
-        discount: 600,
       },
       5: {
         oneWeekExceptWeek3: 2500,
@@ -74,7 +73,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 5000,
         twoWeeksWithWeek3: 5500,
         threeWeeks: 6600,
-        discount: 900,
       },
     },
   },
@@ -91,7 +89,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 1100,
         twoWeeksWithWeek3: 1200,
         threeWeeks: 1550,
-        discount: 102,
       },
       2: {
         oneWeekExceptWeek3: 1100,
@@ -99,7 +96,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 2200,
         twoWeeksWithWeek3: 2400,
         threeWeeks: 2950,
-        discount: 204,
       },
       3: {
         oneWeekExceptWeek3: 1650,
@@ -107,7 +103,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 3300,
         twoWeeksWithWeek3: 3600,
         threeWeeks: 4350,
-        discount: 450,
       },
       4: {
         oneWeekExceptWeek3: 2400,
@@ -115,7 +110,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 4800,
         twoWeeksWithWeek3: 5200,
         threeWeeks: 6000,
-        discount: 600,
       },
       5: {
         oneWeekExceptWeek3: 2750,
@@ -123,7 +117,6 @@ const PRICING_PLANS = [
         twoWeeksExceptWeek3: 5500,
         twoWeeksWithWeek3: 6000,
         threeWeeks: 7350,
-        discount: 900,
       },
     },
   },
@@ -133,7 +126,43 @@ function formatPrice(price) {
   return `${price.toLocaleString('fr-FR')} ₪`
 }
 
-function getTotalPrice(plan, childrenCount, selectedWeeks) {
+function getRegistrationDeadline(year) {
+  return new Date(
+    year,
+    REGISTRATION_DEADLINE_MONTH_INDEX,
+    REGISTRATION_DEADLINE_DAY,
+    23,
+    59,
+    59
+  )
+}
+
+function getCountdown(deadline, now) {
+  const difference = Math.max(deadline.getTime() - now.getTime(), 0)
+
+  const days = Math.floor(difference / (1000 * 60 * 60 * 24))
+  const hours = Math.floor((difference / (1000 * 60 * 60)) % 24)
+  const minutes = Math.floor((difference / (1000 * 60)) % 60)
+  const seconds = Math.floor((difference / 1000) % 60)
+
+  return { days, hours, minutes, seconds, isFinished: difference === 0 }
+}
+
+function getActivePlan(isEarlyRateActive) {
+  return PRICING_PLANS.find((plan) =>
+    isEarlyRateActive ? plan.id === 'early' : plan.id === 'standard'
+  )
+}
+
+function getSingleWeekPrice(plan, childrenCount, weekId) {
+  const rates = plan.rates[childrenCount]
+
+  return weekId === 'week3'
+    ? rates.oneWeekWithWeek3
+    : rates.oneWeekExceptWeek3
+}
+
+function getTotalPriceDetails(plan, childrenCount, selectedWeeks) {
   const selectedCount = selectedWeeks.length
   const includesWeek3 = selectedWeeks.includes('week3')
   const rates = plan.rates[childrenCount]
@@ -141,30 +170,91 @@ function getTotalPrice(plan, childrenCount, selectedWeeks) {
   if (selectedCount === 0) return null
 
   if (selectedCount === 1) {
-    return includesWeek3
+    const finalPrice = includesWeek3
       ? rates.oneWeekWithWeek3
       : rates.oneWeekExceptWeek3
+
+    return {
+      finalPrice,
+      grossPrice: finalPrice,
+      hasDiscount: false,
+    }
   }
 
   if (selectedCount === 2) {
-    return includesWeek3
+    const finalPrice = includesWeek3
       ? rates.twoWeeksWithWeek3
       : rates.twoWeeksExceptWeek3
+
+    return {
+      finalPrice,
+      grossPrice: finalPrice,
+      hasDiscount: false,
+    }
   }
 
   if (selectedCount === 3) {
-    return rates.threeWeeks
+    const grossPrice = WEEKS.reduce((total, week) => {
+      return total + getSingleWeekPrice(plan, childrenCount, week.id)
+    }, 0)
+
+    return {
+      finalPrice: rates.threeWeeks,
+      grossPrice,
+      hasDiscount: grossPrice > rates.threeWeeks,
+    }
   }
 
   return null
+}
+
+function CountdownBox({ countdown, isEarlyRateActive }) {
+  if (!isEarlyRateActive) {
+    return (
+      <div className="pricing-countdown pricing-countdown-ended fade-in fade-in-delay-1">
+        <span className="pricing-countdown-label">Tarif préférentiel terminé</span>
+        <strong>Le tarif normal est maintenant appliqué.</strong>
+      </div>
+    )
+  }
+
+  return (
+    <div className="pricing-countdown fade-in fade-in-delay-1">
+      <span className="pricing-countdown-label">
+        Le tarif préférentiel se termine le 10 juin
+      </span>
+
+      <div className="countdown-grid" aria-label="Compte à rebours jusqu’au 10 juin">
+        <div className="countdown-item">
+          <strong>{countdown.days}</strong>
+          <span>jours</span>
+        </div>
+
+        <div className="countdown-item">
+          <strong>{countdown.hours}</strong>
+          <span>heures</span>
+        </div>
+
+        <div className="countdown-item">
+          <strong>{countdown.minutes}</strong>
+          <span>min</span>
+        </div>
+
+        <div className="countdown-item">
+          <strong>{countdown.seconds}</strong>
+          <span>sec</span>
+        </div>
+      </div>
+    </div>
+  )
 }
 
 function PricingCalculator({ plan }) {
   const [childrenCount, setChildrenCount] = useState(1)
   const [selectedWeeks, setSelectedWeeks] = useState([])
 
-  const totalPrice = useMemo(() => {
-    return getTotalPrice(plan, childrenCount, selectedWeeks)
+  const priceDetails = useMemo(() => {
+    return getTotalPriceDetails(plan, childrenCount, selectedWeeks)
   }, [plan, childrenCount, selectedWeeks])
 
   const selectedWeekDetails = WEEKS.filter((week) =>
@@ -222,12 +312,11 @@ function PricingCalculator({ plan }) {
           <div className="week-choice-grid">
             {WEEKS.map((week) => {
               const isSelected = selectedWeeks.includes(week.id)
-              const rates = plan.rates[childrenCount]
-
-              const singleWeekPrice =
-                week.id === 'week3'
-                  ? rates.oneWeekWithWeek3
-                  : rates.oneWeekExceptWeek3
+              const singleWeekPrice = getSingleWeekPrice(
+                plan,
+                childrenCount,
+                week.id
+              )
 
               return (
                 <label
@@ -264,11 +353,19 @@ function PricingCalculator({ plan }) {
         <div className="pricing-result">
           <span className="pricing-result-label">Total estimé</span>
 
-          <strong>
-            {totalPrice === null
-              ? 'Sélectionnez une semaine'
-              : formatPrice(totalPrice)}
-          </strong>
+          {priceDetails === null ? (
+            <strong>Sélectionnez une semaine</strong>
+          ) : priceDetails.hasDiscount ? (
+            <div className="pricing-result-price-row">
+              <span className="pricing-original-price">
+                {formatPrice(priceDetails.grossPrice)}
+              </span>
+
+              <strong>{formatPrice(priceDetails.finalPrice)}</strong>
+            </div>
+          ) : (
+            <strong>{formatPrice(priceDetails.finalPrice)}</strong>
+          )}
 
           {selectedWeekDetails.length > 0 && (
             <p>
@@ -276,13 +373,6 @@ function PricingCalculator({ plan }) {
                 ? 'Pour 1 enfant'
                 : `Pour ${childrenCount} enfants`}{' '}
               — {selectedWeekDetails.map((week) => week.title).join(', ')}
-            </p>
-          )}
-
-          {selectedWeeks.length === 3 && (
-            <p className="pricing-discount">
-              Réduction incluse :{' '}
-              {formatPrice(plan.rates[childrenCount].discount)}
             </p>
           )}
         </div>
@@ -293,6 +383,29 @@ function PricingCalculator({ plan }) {
 
 export default function Pricing() {
   const [showRulesPdf, setShowRulesPdf] = useState(false)
+  const [now, setNow] = useState(() => new Date())
+
+  const deadline = useMemo(() => {
+    return getRegistrationDeadline(now.getFullYear())
+  }, [now])
+
+  const isEarlyRateActive = now <= deadline
+
+  const activePlan = useMemo(() => {
+    return getActivePlan(isEarlyRateActive)
+  }, [isEarlyRateActive])
+
+  const countdown = useMemo(() => {
+    return getCountdown(deadline, now)
+  }, [deadline, now])
+
+  useEffect(() => {
+    const intervalId = window.setInterval(() => {
+      setNow(new Date())
+    }, 1000)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
 
   function closeRulesPdf() {
     setShowRulesPdf(false)
@@ -307,11 +420,18 @@ export default function Pricing() {
             Calculez facilement le tarif selon le nombre d’enfants et les semaines choisies.
           </p>
         </div>
+        <p className="pricing-countdown-message">
+          🎉 Ne ratez pas l’offre préférentielle : inscrivez votre enfant avant le 10 juin pour profiter du meilleur tarif!
+        </p>
 
-        <div className="pricing-calculators fade-in fade-in-delay-1">
-          {PRICING_PLANS.map((plan) => (
-            <PricingCalculator key={plan.id} plan={plan} />
-          ))}
+        <CountdownBox
+          countdown={countdown}
+          isEarlyRateActive={isEarlyRateActive}
+          
+        />
+
+        <div className="pricing-calculators fade-in fade-in-delay-2">
+          <PricingCalculator plan={activePlan} />
         </div>
 
         <div className="pricing-links fade-in fade-in-delay-3">
