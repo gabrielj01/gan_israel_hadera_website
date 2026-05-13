@@ -239,6 +239,71 @@ section {
 }
 
 /* =============================================
+   Loader
+   ============================================= */
+
+   .site-loader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
+  background: linear-gradient(135deg, var(--blue-pale), var(--blue-light));
+  color: var(--blue-dark);
+
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.loader-circle {
+  width: 70px;
+  height: 70px;
+  border: 6px solid rgba(255, 255, 255, 0.7);
+  border-top-color: var(--yellow);
+  border-radius: 50%;
+  animation: loaderSpin 0.9s linear infinite;
+}
+
+@keyframes loaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.site-content.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-content {
+  opacity: 1;
+  transition: opacity 0.4s ease;
+}
+
+.loader-image {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+  animation: loaderRotate 1.5s ease-out infinite;
+}
+
+@keyframes loaderRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =============================================
    NAVBAR
    ============================================= */
 .navbar {
@@ -321,7 +386,9 @@ section {
 .bh-mark {
   position: absolute;
   top: 6px;
-  left: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--blue-main);
@@ -888,6 +955,24 @@ section {
 /* =============================================
    TARIFS
    ============================================= */
+
+.week-price-row {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-left: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.week-original-price {
+  font-size: 0.95rem;
+}
+
+.week-current-price {
+  color: var(--green);
+  font-weight: 900;
+}
+
 .pricing {
   background: linear-gradient(180deg, var(--blue-pale) 0%, var(--yellow-light) 100%);
   padding: 5rem 1.5rem;
@@ -1179,12 +1264,25 @@ section {
 }
 
 .pricing-original-price {
+  position: relative;
+  display: inline-block;
   font-family: var(--font-display);
   font-size: clamp(1.15rem, 3vw, 1.55rem);
   font-weight: 800;
   color: var(--text-muted);
-  text-decoration: line-through;
-  text-decoration-thickness: 3px;
+  text-decoration: none;
+}
+
+.pricing-original-price::after {
+  content: "";
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: 50%;
+  height: 3px;
+  background-color: currentColor;
+  transform: rotate(-15deg);
+  transform-origin: center;
 }
 
 .pricing-result p {
@@ -1510,6 +1608,52 @@ section {
 .footer-bottom {
   font-size: 0.8rem;
   color: rgba(255,255,255,0.35);
+}
+
+.footer-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 140px 1fr 140px;
+  align-items: center;
+  gap: 2rem;
+}
+
+.footer-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.footer-side-logo {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+  justify-self: center;
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+
+  .footer-side-logo {
+    width: 100px;
+  }
+
+  .footer-side-logo-left {
+    order: 1;
+  }
+
+  .footer-main {
+    order: 2;
+  }
+
+  .footer-side-logo-right {
+    order: 3;
+  }
 }
 
 /* =============================================

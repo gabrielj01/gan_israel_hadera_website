@@ -126,6 +126,10 @@ function formatPrice(price) {
   return `${price.toLocaleString('fr-FR')} ₪`
 }
 
+function getEarlySaving(childrenCount, selectedWeeksCount) {
+  return 50 * childrenCount * selectedWeeksCount
+}
+
 function getRegistrationDeadline(year) {
   return new Date(
     year,
@@ -169,43 +173,39 @@ function getTotalPriceDetails(plan, childrenCount, selectedWeeks) {
 
   if (selectedCount === 0) return null
 
+  let finalPrice = 0
+
   if (selectedCount === 1) {
-    const finalPrice = includesWeek3
+    finalPrice = includesWeek3
       ? rates.oneWeekWithWeek3
       : rates.oneWeekExceptWeek3
-
-    return {
-      finalPrice,
-      grossPrice: finalPrice,
-      hasDiscount: false,
-    }
   }
 
   if (selectedCount === 2) {
-    const finalPrice = includesWeek3
+    finalPrice = includesWeek3
       ? rates.twoWeeksWithWeek3
       : rates.twoWeeksExceptWeek3
-
-    return {
-      finalPrice,
-      grossPrice: finalPrice,
-      hasDiscount: false,
-    }
   }
 
   if (selectedCount === 3) {
-    const grossPrice = WEEKS.reduce((total, week) => {
-      return total + getSingleWeekPrice(plan, childrenCount, week.id)
-    }, 0)
-
-    return {
-      finalPrice: rates.threeWeeks,
-      grossPrice,
-      hasDiscount: grossPrice > rates.threeWeeks,
-    }
+    finalPrice = rates.threeWeeks
   }
 
-  return null
+  const grossPrice = selectedWeeks.reduce((total, weekId) => {
+    const singleWeekPrice = getSingleWeekPrice(plan, childrenCount, weekId)
+
+    if (plan.id === 'early') {
+      return total + singleWeekPrice + getEarlySaving(childrenCount, 1)
+    }
+
+    return total + singleWeekPrice
+  }, 0)
+
+  return {
+    finalPrice,
+    grossPrice,
+    hasDiscount: plan.id === 'early' && grossPrice > finalPrice,
+  }
 }
 
 function CountdownBox({ countdown, isEarlyRateActive }) {
@@ -318,6 +318,9 @@ function PricingCalculator({ plan }) {
                 week.id
               )
 
+              const originalSingleWeekPrice =
+                singleWeekPrice + getEarlySaving(childrenCount, 1)
+
               return (
                 <label
                   key={week.id}
@@ -330,9 +333,27 @@ function PricingCalculator({ plan }) {
                   />
 
                   <span className="week-choice-title">{week.title}</span>
+
                   <span className="week-choice-price">
-                    1 semaine : {formatPrice(singleWeekPrice)}
+                    1 semaine :
+
+                    {plan.id === 'early' ? (
+                      <span className="week-price-row">
+                        <span className="pricing-original-price week-original-price">
+                          {formatPrice(originalSingleWeekPrice)}
+                        </span>
+
+                        <strong className="week-current-price">
+                          {formatPrice(singleWeekPrice)}
+                        </strong>
+                      </span>
+                    ) : (
+                      <strong className="week-current-price">
+                        {formatPrice(singleWeekPrice)}
+                      </strong>
+                    )}
                   </span>
+
                   <span className="week-choice-date">{week.dates}</span>
                 </label>
               )
@@ -420,6 +441,7 @@ export default function Pricing() {
             Calculez facilement le tarif selon le nombre d’enfants et les semaines choisies.
           </p>
         </div>
+
         <p className="pricing-countdown-message">
           🎉 Ne ratez pas l’offre préférentielle : inscrivez votre enfant avant le 10 juin pour profiter du meilleur tarif!
         </p>
@@ -427,7 +449,6 @@ export default function Pricing() {
         <CountdownBox
           countdown={countdown}
           isEarlyRateActive={isEarlyRateActive}
-          
         />
 
         <div className="pricing-calculators fade-in fade-in-delay-2">
