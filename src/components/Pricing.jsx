@@ -221,7 +221,7 @@ function CountdownBox({ countdown, isEarlyRateActive }) {
   return (
     <div className="pricing-countdown fade-in fade-in-delay-1">
       <span className="pricing-countdown-label">
-        Le tarif préférentiel se termine le 10 juin
+        Le tarif préférentiel se termine le 10 juin ! <br /> Profitez-en avant qu’il ne soit trop tard !
       </span>
 
       <div className="countdown-grid" aria-label="Compte à rebours jusqu’au 10 juin">
@@ -416,7 +416,7 @@ export default function Pricing() {
       <div className="container">
         <div className="section-header fade-in">
           <h2 className="section-title">Tarifs &amp; Paiements</h2>
-          <p className="section-subtitle">
+          <p className="pricing-subtitle">
             Calculez facilement le tarif selon le nombre d’enfants et les semaines choisies.
           </p>
         </div>
