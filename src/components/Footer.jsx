@@ -61,17 +61,17 @@ export default function Footer() {
                 href="https://www.facebook.com/menouha.amram/"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Page Facebook de la communauté Habad Hadera"
+                aria-label="Page Facebook de la communauté Jeunesse Habad Hadera"
               >
                 <IconFacebook />
               </a>
 
               <a
-                href="https://www.instagram.com/habad_hadera/"
+                href="https://www.instagram.com/jeunesse.hadera"
                 className='social-link instagram-link'
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Profil Instagram de la communauté Habad Hadera"
+                aria-label="Profil Instagram de la communauté Jeunesse Habad Hadera"
               >
                 <FaInstagram />
               </a>
@@ -90,6 +90,17 @@ export default function Footer() {
         <p className="footer-bottom">
           © {new Date().getFullYear()} – Beth Habad Jeunesse Hadera
         </p>
+
+        <div className="footer-credit">
+          <a
+            href="https://wa.me/972555002359?text=Bonjour%20Gabriel%2C%20je%20suis%20int%C3%A9ress%C3%A9%20par%20vos%20services%20de%20d%C3%A9veloppement%20web%20et%20j%E2%80%99aimerais%20obtenir%20plus%20d%E2%80%99informations."
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Contacter Gabriel sur WhatsApp"
+          >
+            Designed & developed by Gabriel. 
+          </a>
+        </div>
       </div>
     </footer>
   )

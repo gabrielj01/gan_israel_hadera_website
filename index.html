@@ -2,34 +2,104 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/assets/logos/favicon.png" />
+
+    <link rel="icon" type="image/png" href="/src/assets/logos/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- SEO -->
-    <title>Gan Israel Hadera – Centre Aéré Francophone</title>
+    <title>Gan Israel Hadera | Vacances et activités pour enfants à Hadera</title>
+
     <meta
       name="description"
-      content="Gan Israel Hadera, centre aéré pour enfants de 4 ans jusqu'aux ados. Activités ludiques, sportives et éducatives pendant les vacances scolaires à Hadera."
+      content="Gan Israel Hadera accueille les enfants de 4 ans jusqu’aux ados à Hadera avec des activités ludiques, sportives et éducatives."
     />
 
-    <!-- Open Graph (partage WhatsApp / réseaux) -->
+    <meta
+      name="keywords"
+      content="Gan Israel Hadera, Gan Israël Hadera, activités enfants Hadera, vacances enfants Hadera, Beth Habad Hadera, jeunesse Hadera, Habad Hadera"
+    />
+
+    <meta name="author" content="Beth Habad Jeunesse Hadera" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#87d8ff" />
+
+    <link rel="canonical" href="https://ganisrael-hadera.com/" />
+
+    <!-- Open Graph : WhatsApp / Facebook / LinkedIn -->
     <meta property="og:title" content="Gan Israel Hadera" />
     <meta
       property="og:description"
-      content="Centre aéré pour enfants pendant les vacances scolaires à Hadera. Activités ludiques, sportives et éducatives dans une ambiance chaleureuse."
+      content="Vacances, activités ludiques, sportives et éducatives pour les enfants à Hadera."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/assets/images/og-image.jpg" />
+    <meta property="og:url" content="https://ganisrael-hadera.com/" />
+    <meta property="og:site_name" content="Gan Israel Hadera" />
     <meta property="og:locale" content="fr_IL" />
+    <meta
+      property="og:image"
+      content="https://ganisrael-hadera.com/src/assets/logos/favicon.png"
+    />
+    <meta property="og:image:alt" content="Logo Gan Israel Hadera" />
 
-    <!-- Google Fonts : Baloo 2 (titres ronds) + Nunito (corps) -->
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Gan Israel Hadera | Vacances et activités pour enfants"
+    />
+    <meta
+      name="twitter:description"
+      content="Activités ludiques, sportives et éducatives pour les enfants à Hadera."
+    />
+    <meta
+      name="twitter:image"
+      content="https://ganisrael-hadera.com/src/assets/logos/favicon.png"
+    />
+
+    <!-- Google Fonts : Baloo 2 + Nunito -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Données structurées Google -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Gan Israel Hadera",
+        "alternateName": "Beth Habad Jeunesse Hadera",
+        "url": "https://ganisrael-hadera.com/",
+        "logo": "https://ganisrael-hadera.com/src/assets/logos/favicon.png",
+        "description": "Gan Israel Hadera accueille les enfants de 4 ans jusqu’aux ados à Hadera avec des activités ludiques, sportives et éducatives.",
+        "telephone": "+972534716978",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Haguiborim 68",
+          "addressLocality": "Hadera",
+          "addressCountry": "IL"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Hadera"
+        },
+        "sameAs": [
+          "https://www.facebook.com/menouha.amram/",
+          "https://www.instagram.com/jeunesse.hadera"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+972534716978",
+          "contactType": "customer service",
+          "areaServed": "IL",
+          "availableLanguage": ["French", "Hebrew"]
+        }
+      }
+    </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
