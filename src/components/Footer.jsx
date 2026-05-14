@@ -8,30 +8,10 @@
 // Remplace ces chemins par les vraies adresses de tes logos
 import footerLogoLeft from '../assets/logos/logo.png'
 import footerLogoRight from '../assets/logos/logo_droite.png'
+import { FaInstagram } from 'react-icons/fa'
 const IconFacebook = () => (
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-  </svg>
-)
-
-const IconInstagram = () => (
-  <svg viewBox="0 0 24 24" aria-hidden="true">
-    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-    <path
-      d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"
-      fill="none"
-      stroke="white"
-      strokeWidth="2"
-    />
-    <line
-      x1="17.5"
-      y1="6.5"
-      x2="17.51"
-      y2="6.5"
-      stroke="white"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-    />
   </svg>
 )
 
@@ -88,11 +68,12 @@ export default function Footer() {
 
               <a
                 href="https://www.instagram.com/habad_hadera/"
+                className='social-link instagram-link'
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Profil Instagram de la communauté Habad Hadera"
               >
-                <IconInstagram />
+                <FaInstagram />
               </a>
             </div>
           </div>
