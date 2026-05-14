@@ -212,7 +212,9 @@ function CountdownBox({ countdown, isEarlyRateActive }) {
   if (!isEarlyRateActive) {
     return (
       <div className="pricing-countdown pricing-countdown-ended fade-in fade-in-delay-1">
-        <span className="pricing-countdown-label">Tarif préférentiel terminé</span>
+        <span className="pricing-countdown-label">
+          Tarif préférentiel terminé
+        </span>
         <strong>Le tarif normal est maintenant appliqué.</strong>
       </div>
     )
@@ -403,7 +405,6 @@ function PricingCalculator({ plan }) {
 }
 
 export default function Pricing() {
-  const [showRulesPdf, setShowRulesPdf] = useState(false)
   const [now, setNow] = useState(() => new Date())
 
   const deadline = useMemo(() => {
@@ -427,10 +428,6 @@ export default function Pricing() {
 
     return () => window.clearInterval(intervalId)
   }, [])
-
-  function closeRulesPdf() {
-    setShowRulesPdf(false)
-  }
 
   return (
     <section id="pricing" className="pricing">
@@ -456,13 +453,14 @@ export default function Pricing() {
         </div>
 
         <div className="pricing-links fade-in fade-in-delay-3">
-          <button
-            type="button"
+          <a
+            href={RULES_PDF_URL}
+            target="_blank"
+            rel="noopener noreferrer"
             className="pricing-link"
-            onClick={() => setShowRulesPdf(true)}
           >
             📄 Règlement intérieur
-          </button>
+          </a>
 
           <a
             href="https://secure.cardcom.solutions/EA/EA5/eqhjemHj0GdQ7o02jMNQ/PaymentSP"
@@ -483,37 +481,6 @@ export default function Pricing() {
           </a>
         </div>
       </div>
-
-      {showRulesPdf && (
-        <div
-          className="pdf-modal"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Règlement intérieur"
-          onClick={(event) => {
-            if (event.target === event.currentTarget) {
-              closeRulesPdf()
-            }
-          }}
-        >
-          <div className="pdf-modal-content">
-            <button
-              type="button"
-              className="pdf-modal-close"
-              onClick={closeRulesPdf}
-              aria-label="Fermer le PDF"
-            >
-              ×
-            </button>
-
-            <iframe
-              src={RULES_PDF_URL}
-              title="Règlement intérieur"
-              className="pdf-frame"
-            />
-          </div>
-        </div>
-      )}
     </section>
   )
 }
